@@ -29,13 +29,12 @@ const NavBar: React.FC = () => {
     ]
 
     return (
-        <div className="w-full h-20 flex justify-between items-center p-6">
+        <div className="w-full h-20 bg-bgrd-b flex justify-between items-center p-6">
             <h1>Drive Club</h1>
             <ul className="flex gap-7">
                 {
                     navLinks.map(({ path, adminTitle, title, adminOnly }, index) => {
                         if (adminOnly) {
-                            console.log(sessionData);
                             if (sessionData && sessionData.user?.role === Role.ADMIN)
                                 return (
                                     <li key={index}>
@@ -45,12 +44,12 @@ const NavBar: React.FC = () => {
                                 )
                         } else {
 
-                                return (
-                                    <li key={index}>
-                                        <Link href={path}>{adminTitle ?? title}</Link>
+                            return (
+                                <li key={index}>
+                                    <Link href={path}>{adminTitle ?? title}</Link>
 
-                                    </li>
-                                )
+                                </li>
+                            )
                         }
                     })
                 }
