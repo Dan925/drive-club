@@ -5,7 +5,7 @@ import {
     protectedProcedure,
 } from "~/server/api/trpc";
 import { Role, User } from "@prisma/client";
-export const usersRouter = createTRPCRouter({
+const usersRouter = createTRPCRouter({
     getAllStudents: protectedProcedure
         .query(({ ctx }) => {
             return ctx.prisma.student.findMany();
@@ -69,3 +69,4 @@ export const usersRouter = createTRPCRouter({
 
         })
 });
+export default usersRouter;

@@ -6,7 +6,7 @@ import {
 } from "~/server/api/trpc";
 import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-export const lessonsRouter = createTRPCRouter({
+const lessonsRouter = createTRPCRouter({
     getAvailableLessons: protectedProcedure
         .query(({ ctx }) => {
             return ctx.prisma.lesson.findMany({
@@ -163,3 +163,5 @@ export const lessonsRouter = createTRPCRouter({
 
         })
 });
+
+export default lessonsRouter;
