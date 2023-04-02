@@ -89,6 +89,7 @@ model Lesson {
     student         Student?   @relation(fields: [studentId], references: [id], onDelete: SetNull)
     studentId       String?
     booked          Boolean    @default(false)
+    canceled        Boolean    @default(false)
     pickUpLocation  String
     dropOffLocation String
     createdAt       DateTime   @default(now())
