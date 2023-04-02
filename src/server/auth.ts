@@ -4,7 +4,6 @@ import {
     type NextAuthOptions,
     type DefaultSession,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
@@ -44,13 +43,21 @@ export const authOptions: NextAuthOptions = {
             }
             return session;
         },
+        signIn({ user, account, profile, email, credentials }) {
+            // check if we're about to send email
+            if (email?.verificationRequest) {
+                const userEmail: string | undefined = user.email as string | undefined;
+                // if email is is db then authorize login else denie request
+                return prisma.user.findUnique({ where: { email: userEmail } }).then(data => {
+                    console.log("data:", data);
+                    return data !== null;
+                })
+            }
+            return true;
+        }
     },
     adapter: PrismaAdapter(prisma),
     providers: [
-        DiscordProvider({
-            clientId: env.DISCORD_CLIENT_ID,
-            clientSecret: env.DISCORD_CLIENT_SECRET,
-        }),
         Email({
             server: {
                 host: process.env.SMTP_HOST,

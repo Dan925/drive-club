@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap");
+:root {
+  --accent: #ed3434;
+  --bgrd: #282c33;
+  --bgrd-b: #16181c;
+  --gray: #abb2bf;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 10em;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Fira Code", "monospace";
+}
+
+body {
+  background-color: var(--bgrd);
+  color: white;
+}
+
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: var(--gray);
+}
+
+a:hover,
+a:active {
+  color: white;
+  cursor: pointer;
+}
+h1 {
+  margin-bottom: 0.3em;
+  font-size: 2.5em;
+}
+
