@@ -42,13 +42,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String       @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?      @unique
+    role          Role         @default(ADMIN)
     emailVerified DateTime?
-    image         String?
     accounts      Account[]
     sessions      Session[]
+    Student       Student[]
+    Instructor    Instructor[]
 }
 
 model VerificationToken {
@@ -57,4 +59,45 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Student {
+    id            String   @id @default(cuid())
+    firstName     String
+    lastName      String
+    userId        String
+    userProfile   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    phoneNumber   String
+    bookedLessons Lesson[]
+}
+
+model Instructor {
+    id            String   @id @default(uuid())
+    firstName     String
+    lastName      String
+    userId        String
+    userProfile   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    phoneNumber   String
+    postedLessons Lesson[]
+}
+
+model Lesson {
+    id              String     @id @default(uuid())
+    startAt         DateTime
+    endAt           DateTime
+    instructorId    String
+    instructor      Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+    student         Student?   @relation(fields: [studentId], references: [id], onDelete: SetNull)
+    studentId       String?
+    booked          Boolean    @default(false)
+    pickUpLocation  String
+    dropOffLocation String
+    createdAt       DateTime   @default(now())
+    updatedAt       DateTime   @updatedAt
+}
+
+enum Role {
+    ADMIN
+    STUDENT
+    INSTRUCTOR
 }
