@@ -7,23 +7,24 @@ const NavBar: React.FC = () => {
         {
             path: '/lessons',
             title: 'My Lessons',
-            adminOnly: false
+            adminOnly: false,
+            adminTitle: "All Lessons"
         },
         {
             path: '/lessons/available',
             title: 'Open Lessons',
-            adminOnly: false
+            adminOnly: false,
         },
 
         {
             path: '/students',
             title: 'Students',
-            adminOnly: true
+            adminOnly: true,
         },
         {
             path: '/instructors',
             title: 'Instructors',
-            adminOnly: true
+            adminOnly: true,
         },
     ]
 
@@ -32,24 +33,24 @@ const NavBar: React.FC = () => {
             <h1>Drive Club</h1>
             <ul className="flex gap-7">
                 {
-                    navLinks.map(({ path, title, adminOnly }, index) => {
+                    navLinks.map(({ path, adminTitle, title, adminOnly }, index) => {
                         if (adminOnly) {
                             console.log(sessionData);
                             if (sessionData && sessionData.user?.role === Role.ADMIN)
                                 return (
                                     <li key={index}>
-                                        <Link href={path}>{title}</Link>
+                                        <Link href={path}>{adminTitle ?? title}</Link>
 
                                     </li>
                                 )
                         } else {
 
-                            return (
-                                <li key={index}>
-                                    <Link href={path}>{title}</Link>
+                                return (
+                                    <li key={index}>
+                                        <Link href={path}>{adminTitle ?? title}</Link>
 
-                                </li>
-                            )
+                                    </li>
+                                )
                         }
                     })
                 }
