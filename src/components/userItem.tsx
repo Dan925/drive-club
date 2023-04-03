@@ -7,7 +7,7 @@ const UserItem: React.FC<Props> = ({ user }) => {
     //TODO: finish user item component
     return (
         <li>
-            User: {user?.id}
+            User: {user?.firstName + " " + user?.lastName}
         </li>
 
     )
