@@ -3,9 +3,9 @@ import { useState } from "react";
 import { api } from "~/utils/api";
 import List from "~/components/list";
 import { ListTypes } from "~/types/uiTypes";
-import NewUserWizard from "~/components/newUserWizard";
+import NewUserForm from "~/components/newUserForm";
 import { Role } from "@prisma/client";
-
+import { withAuthSessionRoles } from "~/utils/withAuthSession";
 
 const StudentsPage: NextPage = () => {
     const [addNewStudent, setAddNewStudent] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const StudentsPage: NextPage = () => {
                         {addNewStudent ? "Close" : "+New Student"}
                     </button>
                 </div>
-                {addNewStudent && <NewUserWizard userRole={Role.STUDENT} setOpenWizard={setAddNewStudent} />}
+                {addNewStudent && <NewUserForm userRole={Role.STUDENT} setOpenForm={setAddNewStudent} />}
                 {students && <List data={students} listType={ListTypes.USERS} />}
                 {isLoading && <h3>..Loading</h3>}
             </main>
@@ -35,5 +35,8 @@ const StudentsPage: NextPage = () => {
     )
 
 }
+
+const getServerSideProps = withAuthSessionRoles([Role.ADMIN]);
+export { getServerSideProps }
 
 export default StudentsPage;

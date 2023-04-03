@@ -1,6 +1,8 @@
-import { type NextPage } from "next";
+import { NextPageContext, type NextPage } from "next";
 import Head from "next/head";
 import Login from "~/components/login";
+
+import { getSession } from "next-auth/react";
 const Home: NextPage = () => {
 
     return (
@@ -17,6 +19,21 @@ const Home: NextPage = () => {
         </>
     );
 };
+export async function getServerSideProps(context: NextPageContext) {
+
+    const session = await getSession(context)
+    console.log(session)
+    if (session) {
+        return {
+            redirect: {
+                destination: '/lessons',
+                permanent: false,
+            },
+        }
+    }
+    return { props: {} }
+
+}
 
 export default Home;
 

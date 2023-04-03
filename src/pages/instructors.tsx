@@ -3,9 +3,9 @@ import { useState } from "react";
 import { api } from "~/utils/api";
 import List from "~/components/list";
 import { ListTypes } from "~/types/uiTypes";
-import NewUserWizard from "~/components/newUserWizard";
+import NewUserForm from "~/components/newUserForm";
 import { Role } from "@prisma/client";
-
+import { withAuthSessionRoles } from "~/utils/withAuthSession";
 const InstructorsPage: NextPage = () => {
     const [addNewInstructor, setAddNewInstructor] = useState<boolean>(false);
     const { data: instructors, isLoading } = api.usersRouter.getAllInstructors.useQuery();
@@ -22,7 +22,7 @@ const InstructorsPage: NextPage = () => {
                         {addNewInstructor ? "Close" : "+New Instructor"}
                     </button>
                 </div>
-                {addNewInstructor && <NewUserWizard userRole={Role.INSTRUCTOR} setOpenWizard={setAddNewInstructor} />}
+                {addNewInstructor && <NewUserForm userRole={Role.INSTRUCTOR} setOpenForm={setAddNewInstructor} />}
                 {instructors && <List data={instructors} listType={ListTypes.USERS} />}
                 {isLoading && <h3>..Loading</h3>}
             </main>
@@ -30,5 +30,6 @@ const InstructorsPage: NextPage = () => {
     )
 
 }
-
+const getServerSideProps = withAuthSessionRoles([Role.ADMIN]);
+export { getServerSideProps }
 export default InstructorsPage;

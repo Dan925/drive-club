@@ -5,10 +5,10 @@ import { FormEventHandler, useRef, useState } from "react";
 import { api } from "~/utils/api";
 type Props = {
     userRole: Role;
-    setOpenWizard: Dispatch<SetStateAction<boolean>>
+    setOpenForm: Dispatch<SetStateAction<boolean>>
 
 }
-const NewUserWizard: React.FC<Props> = ({ userRole, setOpenWizard }) => {
+const NewUserForm: React.FC<Props> = ({ userRole, setOpenForm }) => {
 
     const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null)
@@ -18,7 +18,7 @@ const NewUserWizard: React.FC<Props> = ({ userRole, setOpenWizard }) => {
         if (userRole === Role.STUDENT) {
             return api.usersRouter.createStudent.useMutation({
                 onSuccess: () => {
-                    setOpenWizard(false);
+                    setOpenForm(false);
                     trpcUtils.usersRouter.getAllStudents.invalidate();
 
                 }
@@ -29,7 +29,7 @@ const NewUserWizard: React.FC<Props> = ({ userRole, setOpenWizard }) => {
         }
         return api.usersRouter.createInstructor.useMutation({
             onSuccess: () => {
-                setOpenWizard(false);
+                setOpenForm(false);
                 trpcUtils.usersRouter.getAllInstructors.invalidate();
 
             }
@@ -78,4 +78,4 @@ const NewUserWizard: React.FC<Props> = ({ userRole, setOpenWizard }) => {
     )
 }
 
-export default NewUserWizard;
+export default NewUserForm;

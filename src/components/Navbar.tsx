@@ -1,8 +1,12 @@
 import { Role } from "@prisma/client";
 import { useSession, signOut } from "next-auth/react"
 import Link from "next/link"
+import { useRouter } from "next/router";
 const NavBar: React.FC = () => {
+    const router = useRouter();
+    const currentRoute = router.pathname;
     const { data: sessionData } = useSession();
+    const linkClass = (path: string) => path === currentRoute ? "text-accent" : "text-gray";
     const navLinks = [
         {
             path: '/lessons',
@@ -43,7 +47,7 @@ const NavBar: React.FC = () => {
                             if (sessionData && sessionData.user?.role === Role.ADMIN)
                                 return (
                                     <li key={index}>
-                                        <Link href={path}>{adminTitle ?? title}</Link>
+                                        <Link href={path} className={linkClass(path)}>{adminTitle ?? title}</Link>
 
                                     </li>
                                 )
@@ -52,7 +56,7 @@ const NavBar: React.FC = () => {
                             if (sessionData && sessionData.user?.role === Role.STUDENT) {
                                 return (
                                     <li key={index}>
-                                        <Link href={path}>{adminTitle ?? title}</Link>
+                                        <Link href={path} className={linkClass(path)}>{adminTitle ?? title}</Link>
 
                                     </li>
                                 )
@@ -63,7 +67,7 @@ const NavBar: React.FC = () => {
 
                             return (
                                 <li key={index}>
-                                    <Link href={path}>{adminTitle ?? title}</Link>
+                                    <Link href={path} className={linkClass(path)}>{adminTitle ?? title}</Link>
 
                                 </li>
                             )
