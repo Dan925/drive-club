@@ -55,7 +55,7 @@ const NavBar: React.FC = () => {
                 }
                 <li>
                     <button
-                        className="rounded-full bg-white/10 px-10 py-1 font-semibold text-white no-underline transition hover:bg-white/20"
+                        className="rounded-full bg-white/10 px-10 py-1 font-semibold text-white no-underline transition hover:bg-accent"
                         onClick={() => signOut()}
                     >
                         Sign Out

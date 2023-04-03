@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap");
 :root {
-  --accent: #ed3434;
+  --accent: #DBA11C;
   --bgrd: #282c33;
   --bgrd-b: #16181c;
   --gray: #abb2bf;
