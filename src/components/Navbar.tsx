@@ -8,23 +8,28 @@ const NavBar: React.FC = () => {
             path: '/lessons',
             title: 'My Lessons',
             adminOnly: false,
-            adminTitle: "All Lessons"
+            adminTitle: "All Lessons",
+            studentsOnly: false,
         },
         {
             path: '/lessons/available',
             title: 'Open Lessons',
             adminOnly: false,
+            studentsOnly: true,
         },
 
         {
             path: '/students',
             title: 'Students',
             adminOnly: true,
+            studentsOnly: false,
+
         },
         {
             path: '/instructors',
             title: 'Instructors',
             adminOnly: true,
+            studentsOnly: false,
         },
     ]
 
@@ -33,7 +38,7 @@ const NavBar: React.FC = () => {
             <h1>Drive Club</h1>
             <ul className="flex gap-7">
                 {
-                    navLinks.map(({ path, adminTitle, title, adminOnly }, index) => {
+                    navLinks.map(({ path, adminTitle, title, adminOnly, studentsOnly }, index) => {
                         if (adminOnly) {
                             if (sessionData && sessionData.user?.role === Role.ADMIN)
                                 return (
@@ -42,7 +47,19 @@ const NavBar: React.FC = () => {
 
                                     </li>
                                 )
-                        } else {
+                        } else if (studentsOnly) {
+
+                            if (sessionData && sessionData.user?.role === Role.STUDENT) {
+                                return (
+                                    <li key={index}>
+                                        <Link href={path}>{adminTitle ?? title}</Link>
+
+                                    </li>
+                                )
+
+                            }
+                        }
+                        else {
 
                             return (
                                 <li key={index}>
