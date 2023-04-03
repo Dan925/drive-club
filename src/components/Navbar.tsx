@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
                             if (sessionData && sessionData.user?.role === Role.STUDENT) {
                                 return (
                                     <li key={index}>
-                                        <Link href={path} className={linkClass(path)}>{adminTitle ?? title}</Link>
+                                        <Link href={path} className={linkClass(path)}>{title}</Link>
 
                                     </li>
                                 )
@@ -64,10 +64,10 @@ const NavBar: React.FC = () => {
                             }
                         }
                         else {
-
+                            let useAdminTitle = adminTitle&& sessionData?.user?.role===Role.ADMIN
                             return (
                                 <li key={index}>
-                                    <Link href={path} className={linkClass(path)}>{adminTitle ?? title}</Link>
+                                    <Link href={path} className={linkClass(path)}>{useAdminTitle?adminTitle:title}</Link>
 
                                 </li>
                             )
