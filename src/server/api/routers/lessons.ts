@@ -46,9 +46,7 @@ const lessonsRouter = createTRPCRouter({
     createLesson: protectedProcedure
         .input(z.object({
             startAt: z.string().datetime(),
-            endAt: z.string().datetime(),
-            pickUpLocation: z.string(),
-            dropOffLocation: z.string()
+            endAt: z.string().datetime()
         }))
         .mutation(async ({ input, ctx }) => {
             const instructor = await ctx.prisma.instructor.findFirst({
@@ -65,8 +63,6 @@ const lessonsRouter = createTRPCRouter({
                     data: {
                         startAt: input.startAt,
                         endAt: input.endAt,
-                        pickUpLocation: input.pickUpLocation,
-                        dropOffLocation: input.dropOffLocation,
                         instructorId: instructor.id
                     }
                 })
@@ -81,7 +77,9 @@ const lessonsRouter = createTRPCRouter({
 
     bookLessonById: protectedProcedure
         .input(z.object({
-            lessonId: z.string()
+            lessonId: z.string(),
+            pickUpLocation: z.string(),
+            dropOffLocation: z.string(),
         }))
         .mutation(async ({ input, ctx }) => {
             const student = await ctx.prisma.student.findFirst({
@@ -100,7 +98,9 @@ const lessonsRouter = createTRPCRouter({
                         },
                         data: {
                             booked: true,
-                            studentId: student.id
+                            studentId: student.id,
+                            pickUpLocation: input.pickUpLocation,
+                            dropOffLocation: input.dropOffLocation
                         }
                     });
                     return updatedLesson;
