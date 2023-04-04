@@ -7,6 +7,7 @@ import { useState } from "react";
 import { ListTypes } from "~/types/uiTypes";
 import NewLessonForm from "~/components/newLessonForm";
 import { withAuthSessionRoles } from "~/utils/withAuthSession";
+
 const LessonsPage: NextPage = () => {
 
     const { data: sessionData } = useSession()
@@ -20,7 +21,7 @@ const LessonsPage: NextPage = () => {
 
             {canCreateLessons && addNewLesson && <div className="fixed w-full h-full bg-bgrd-b opacity-50 z-10 flex flex-col justify-center"></div>}
 
-            <main className="w-full h-full py-3 flex flex-col items-center z-1">
+            <main className="w-full h-full py-3 flex flex-col items-center z-1 gap-5">
                 <div className="flex gap-10">
                     <h1>Lessons List</h1>
                     {canCreateLessons &&

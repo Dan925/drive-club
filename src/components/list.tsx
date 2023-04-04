@@ -13,7 +13,7 @@ const List: React.FC<Props> = ({ data, listType }) => {
 
     return (
 
-        <ul>
+        <ul className="w-3/4 h-full flex flex-col items-center">
             {
                 data.map((element, index) => {
                     if (listType === ListTypes.USERS)
