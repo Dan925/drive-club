@@ -5,14 +5,20 @@ import {
     protectedProcedure,
 } from "~/server/api/trpc";
 import { Role, User } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 const usersRouter = createTRPCRouter({
     getAllStudents: protectedProcedure
         .query(({ ctx }) => {
+
+            if (ctx.session.user.role === Role.STUDENT)
+                throw new TRPCError({ message: "Students are not allowed to access all students accounts", code: 'UNAUTHORIZED' })
             return ctx.prisma.student.findMany();
         }),
 
     getAllInstructors: protectedProcedure
         .query(({ ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to access all instructors accounts", code: 'UNAUTHORIZED' })
             return ctx.prisma.instructor.findMany();
         }),
     createStudent: protectedProcedure
@@ -23,6 +29,8 @@ const usersRouter = createTRPCRouter({
             phoneNumber: z.string()
         }))
         .mutation(async ({ input, ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to create student accounts", code: 'UNAUTHORIZED' })
             const user: User = await ctx.prisma.user.create({
                 data: {
                     email: input.email,
@@ -50,6 +58,8 @@ const usersRouter = createTRPCRouter({
             phoneNumber: z.string()
         }))
         .mutation(async ({ input, ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to create instructor accounts", code: 'UNAUTHORIZED' })
             const user: User = await ctx.prisma.user.create({
                 data: {
                     email: input.email,
@@ -67,6 +77,20 @@ const usersRouter = createTRPCRouter({
             })
             return instructor;
 
+        }),
+
+    deleteUser: protectedProcedure
+        .input(
+            z.object({
+                userId: z.string()
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to delete user accounts", code: 'UNAUTHORIZED' })
+            await ctx.prisma.user.delete({ where: { id: input.userId } })
+            return input.userId
         })
+
 });
 export default usersRouter;
