@@ -8,6 +8,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "~/server/db";
 import Email from "next-auth/providers/email";
 import { Role } from "@prisma/client";
+
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -26,6 +27,14 @@ declare module "next-auth" {
         role: Role;
     }
 }
+declare module "next-auth/jwt" {
+    interface JWT {
+        userId: string;
+        role: Role;
+
+    }
+}
+
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -43,9 +52,9 @@ export const authOptions: NextAuthOptions = {
                 session.user.id = user.id;
                 session.user.role = user.role;
             }
-            return session;
+            return session
         },
-        signIn({ user, account, profile, email, credentials }) {
+        signIn({ user, email }) {
             // check if we're about to send email
             if (email?.verificationRequest) {
                 const userEmail: string | undefined = user.email as string | undefined;
@@ -56,7 +65,7 @@ export const authOptions: NextAuthOptions = {
                 })
             }
             return true;
-        }
+        },
     },
     adapter: PrismaAdapter(prisma),
     providers: [
