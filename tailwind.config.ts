@@ -12,7 +12,7 @@ export default {
                 "gray": "var(--gray)"
             },
             fontFamily: {
-                firaCode: ["var(--font-fira-code)"]
+                firaCode: ["var(--font-fira)"]
             }
         },
     },
