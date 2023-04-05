@@ -40,14 +40,20 @@ const NewLessonForm: React.FC<Props> = ({ setOpenForm }) => {
 
     }
 
-    startAt && console.log(format(new Date(startAt), 'yyyy-MM-dd/HH:mm:X'))
+    const getStartMinValue = () => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        now.setMilliseconds(0);
+        now.setSeconds(0);
+        return now.toISOString().slice(0, -1);
+    }
 
     return (
-        <div className="fixed top-56 rounded-md w-280 h-fit flex flex flex-col justify-center gap-4 z-20 bg-gray items-center p-3">
+        <div className="fixed top-56 rounded-md w-280 h-fit flex flex-col justify-center gap-4 z-20 bg-gray items-center p-3">
             <h2 className="text-3xl font-bold ">Lesson</h2>
             <form action="#" className="flex flex-col gap-3" onSubmit={handleSubmit} >
                 <label htmlFor="startAt">Start At:</label>
-                <input className="p-3 rounded-lg text-bgrd-b" type="datetime-local" placeholder="Start At" value={startAt} onChange={(e) => setStartAt(e.target.value)} name="startAt" required min={new Date().toISOString()} />
+                <input className="p-3 rounded-lg text-bgrd-b" type="datetime-local" placeholder="Start At" value={startAt} onChange={(e) => setStartAt(e.target.value)} name="startAt" required min={getStartMinValue()} />
 
                 <label htmlFor="endAt">End At:</label>
                 {startAt ?

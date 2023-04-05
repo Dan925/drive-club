@@ -41,6 +41,10 @@ const lessonsRouter = createTRPCRouter({
                         }
                     },
 
+                },
+
+                orderBy: {
+                    startAt: "asc"
                 }
             });
         }),
@@ -80,6 +84,9 @@ const lessonsRouter = createTRPCRouter({
                             }
                         },
 
+                    },
+                    orderBy: {
+                        startAt: "asc"
                     }
                 })
             }
@@ -117,6 +124,10 @@ const lessonsRouter = createTRPCRouter({
                             }
                         },
 
+                    },
+
+                    orderBy: {
+                        startAt: "asc"
                     }
                 })
 
@@ -147,6 +158,10 @@ const lessonsRouter = createTRPCRouter({
                         }
                     },
 
+                },
+
+                orderBy: {
+                    startAt: "asc"
                 }
             });
         }),

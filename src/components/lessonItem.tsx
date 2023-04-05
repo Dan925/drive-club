@@ -58,9 +58,9 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
                     <p className="font-bold"> Duration: </p>
                     {formatDistance(lesson.endAt, lesson.startAt)}
                 </span>
-                <div className="w-full h-1 bg-accent"></div>
                 {lesson.booked &&
                     <>
+                        <div className="w-full h-1 bg-accent"></div>
                         <span className="flex w-full">
                             <p className="font-bold"> Pick Up Location:</p>
                             {lesson.pickUpLocation}
