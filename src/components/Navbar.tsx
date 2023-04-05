@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
                             }
                         }
                         else {
-                            let useAdminTitle = adminTitle && sessionData?.user?.role === Role.ADMIN
+                            const useAdminTitle = adminTitle && sessionData?.user?.role === Role.ADMIN
                             return (
                                 <li key={index}>
                                     <Link href={path} className={linkClass(path)}>{useAdminTitle ? adminTitle : title}</Link>

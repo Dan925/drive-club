@@ -30,7 +30,7 @@ const server = z.object({
  * built with invalid env vars. To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 const client = z.object({
-    NEXT_PUBLIC_GOOGLE_API_KEY:z.string().min(1)
+    NEXT_PUBLIC_GOOGLE_API_KEY: z.string().min(1)
 });
 
 /**
@@ -44,12 +44,12 @@ const processEnv = {
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-SMTP_HOST: process.env.SMTP_HOST,
-SMTP_PORT:process.env.SMTP_PORT ,
-SMTP_USER:process.env.SMTP_USER,
-SMTP_PASSWORD:process.env.SMTP_PASSWORD,
-SMTP_FROM: process.env.SMTP_FROM,
-    NEXT_PUBLIC_GOOGLE_API_KEY:process.env.NEXT_PUBLIC_GOOGLE_API_KEY
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+    SMTP_FROM: process.env.SMTP_FROM,
+    NEXT_PUBLIC_GOOGLE_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_API_KEY
 };
 
 // Don't touch the part below

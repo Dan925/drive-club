@@ -1,9 +1,10 @@
-import { NextPageContext, type NextPage } from "next";
+import { NextPageContext } from "next";
 import Head from "next/head";
 import Login from "~/components/login";
-
+import { getCsrfToken } from "next-auth/react";
 import { getSession } from "next-auth/react";
-const Home: NextPage = () => {
+import { InferGetServerSidePropsType } from "next";
+const Home = ({ csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
     return (
         <>
@@ -14,7 +15,9 @@ const Home: NextPage = () => {
             </Head>
             <main className=" w-full h-screen flex flex-col items-center justify-center gap-4">
                 <h1>Driving Lesson Scheduling</h1>
-                <Login />
+
+                <Login csrfToken={csrfToken} />
+
             </main>
         </>
     );
@@ -31,7 +34,11 @@ export async function getServerSideProps(context: NextPageContext) {
             },
         }
     }
-    return { props: {} }
+    const csrfToken = await getCsrfToken(context)
+
+    return {
+        props: { csrfToken: csrfToken },
+    }
 
 }
 
