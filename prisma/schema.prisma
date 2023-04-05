@@ -82,8 +82,8 @@ model Instructor {
 
 model Lesson {
     id              String     @id @default(uuid())
-    startAt         DateTime
-    endAt           DateTime
+    startAt         DateTime   @db.Timestamptz(3)
+    endAt           DateTime   @db.Timestamptz(3)
     instructorId    String
     instructor      Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
     student         Student?   @relation(fields: [studentId], references: [id], onDelete: SetNull)

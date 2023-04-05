@@ -79,9 +79,9 @@ const NavBar: React.FC = () => {
                 <li>
                     <span className="hover:text-accent hover:cursor-pointer flex gap-1" onClick={() => setToggleAccountDetails(state => !state)}>
                         {sessionData?.user.email}
-                        {openAccountDetails?
-<span>&#8593;</span>
-:
+                        {openAccountDetails ?
+                            <span>&#8593;</span>
+                            :
                             <span>&#8595;</span>
                         }
                     </span>

@@ -58,14 +58,18 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
                     <p className="font-bold"> Duration: </p>
                     {formatDistance(lesson.endAt, lesson.startAt)}
                 </span>
-                <span className="flex w-full">
-                    <p className="font-bold"> Pick Up Location:</p>
-                    {lesson.pickUpLocation}
-                </span>
-                <span className="flex">
-                    <p className="font-bold"> Drop Off Location:</p>
-                    {lesson.dropOffLocation}
-                </span>
+                {lesson.booked &&
+                <>
+                    <span className="flex w-full">
+                        <p className="font-bold"> Pick Up Location:</p>
+                        {lesson.pickUpLocation}
+                    </span>
+                    <span className="flex">
+                        <p className="font-bold"> Drop Off Location:</p>
+                        {lesson.dropOffLocation}
+                    </span>
+                    </>
+                }
                 {canSeeLessonInstructor &&
                     <>
                         <div className="w-full h-1 bg-accent"></div>

@@ -152,10 +152,11 @@ const lessonsRouter = createTRPCRouter({
         }),
     createLesson: protectedProcedure
         .input(z.object({
-            startAt: z.string().datetime(),
-            endAt: z.string().datetime()
+            startAt: z.string().datetime({ offset: true }),
+            endAt: z.string().datetime({ offset: true })
         }))
         .mutation(async ({ input, ctx }) => {
+            console.log({ startAt: input.startAt, endAt: input.endAt })
             const instructor = await ctx.prisma.instructor.findFirst({
                 where: {
                     userId: ctx.session.user.id
