@@ -51,7 +51,7 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
             {canBookLesson && openBookingForm && <div className="fixed w-full h-full bg-bgrd-b opacity-50 z-10 flex flex-col justify-center"></div>}
             <div className="flex flex-col bg-white/10 w-[500px] h-fit justify-between rounded drop-shadow-xl  p-5">
                 <span className="flex">
-                    <p className="font-bold"> Starts At: </p>
+                    <p className="font-bold">When: </p>
                     {formatRelative(lesson.startAt, new Date())}
                 </span>
                 <span className="flex">
@@ -59,15 +59,15 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
                     {formatDistance(lesson.endAt, lesson.startAt)}
                 </span>
                 {lesson.booked &&
-                <>
-                    <span className="flex w-full">
-                        <p className="font-bold"> Pick Up Location:</p>
-                        {lesson.pickUpLocation}
-                    </span>
-                    <span className="flex">
-                        <p className="font-bold"> Drop Off Location:</p>
-                        {lesson.dropOffLocation}
-                    </span>
+                    <>
+                        <span className="flex w-full">
+                            <p className="font-bold"> Pick Up Location:</p>
+                            {lesson.pickUpLocation}
+                        </span>
+                        <span className="flex">
+                            <p className="font-bold"> Drop Off Location:</p>
+                            {lesson.dropOffLocation}
+                        </span>
                     </>
                 }
                 {canSeeLessonInstructor &&
