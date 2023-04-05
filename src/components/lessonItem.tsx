@@ -24,15 +24,15 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
 
     const canCancelLesson = !lesson.canceled && lesson.booked && (sessionData?.user.role === Role.ADMIN || sessionData?.user.id === lesson.instructor?.userId || sessionData?.user.id === lesson.student?.userId);
     const { mutate: cancelLessonById } = api.lessonsRouter.cancelLessonById.useMutation({
-        onSuccess: () => {
-            trpcUtils.lessonsRouter.getUserLessons.invalidate()
+        onSuccess: async () => {
+            await trpcUtils.lessonsRouter.getUserLessons.invalidate()
             setDisabledCancelBtn(false);
         }
     })
 
     const { mutate: deleteLessonById } = api.lessonsRouter.deleteLessonById.useMutation({
-        onSuccess: () => {
-            trpcUtils.lessonsRouter.getUserLessons.invalidate()
+        onSuccess: async () => {
+            await trpcUtils.lessonsRouter.getUserLessons.invalidate()
             setDisabledCancelBtn(false);
         }
     })

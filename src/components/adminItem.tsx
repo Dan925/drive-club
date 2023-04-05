@@ -12,8 +12,8 @@ const AdminItem: React.FC<Props> = ({ user }) => {
 
 
     const { mutate } = api.usersRouter.deleteUserById.useMutation({
-        onSuccess: () => {
-            trpcUtils.usersRouter.getAllAdmins.invalidate()
+        onSuccess: async () => {
+            await trpcUtils.usersRouter.getAllAdmins.invalidate()
             setDisabledDeleteBtn(false);
         }
     })

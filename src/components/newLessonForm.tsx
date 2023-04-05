@@ -20,9 +20,9 @@ const NewLessonForm: React.FC<Props> = ({ setOpenForm }) => {
     const trpcUtils = api.useContext()
 
     const { mutate, error } = api.lessonsRouter.createLesson.useMutation({
-        onSuccess: () => {
+        onSuccess: async () => {
             setOpenForm(false);
-            trpcUtils.lessonsRouter.getUserLessons.invalidate();
+            await trpcUtils.lessonsRouter.getUserLessons.invalidate();
 
         }
     });

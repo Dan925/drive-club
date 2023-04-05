@@ -12,11 +12,11 @@ const UserItem: React.FC<Props> = ({ user }) => {
 
 
     const { mutate } = api.usersRouter.deleteUserById.useMutation({
-        onSuccess: () => {
-            trpcUtils.lessonsRouter.getUserLessons.invalidate()
-            trpcUtils.lessonsRouter.getAvailableLessons.invalidate()
-            trpcUtils.usersRouter.getAllStudents.invalidate()
-            trpcUtils.usersRouter.getAllInstructors.invalidate()
+        onSuccess: async () => {
+            await Promise.all([trpcUtils.lessonsRouter.getUserLessons.invalidate(),
+            trpcUtils.lessonsRouter.getAvailableLessons.invalidate(),
+            trpcUtils.usersRouter.getAllStudents.invalidate(),
+            trpcUtils.usersRouter.getAllInstructors.invalidate()])
             setDisabledDeleteBtn(false);
         }
     })

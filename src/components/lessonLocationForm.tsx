@@ -10,16 +10,17 @@ type Props = {
 const LessonLocationForm: React.FC<Props> = ({ setOpenForm, lessonId }) => {
 
     const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
     const [pickUpLocation, setPickUpLocation] = useState<any>(null)
     const [dropOffLocation, setDropOffLocation] = useState<any>(null)
 
     const trpcUtils = api.useContext()
 
     const { mutate, error } = api.lessonsRouter.bookLessonById.useMutation({
-        onSuccess: () => {
+        onSuccess: async () => {
             setOpenForm(false);
-            trpcUtils.lessonsRouter.getUserLessons.invalidate();
-            trpcUtils.lessonsRouter.getAvailableLessons.invalidate();
+            await trpcUtils.lessonsRouter.getUserLessons.invalidate();
+            await trpcUtils.lessonsRouter.getAvailableLessons.invalidate();
 
         }
     });
@@ -31,7 +32,8 @@ const LessonLocationForm: React.FC<Props> = ({ setOpenForm, lessonId }) => {
 
         if (pickUpLocation && dropOffLocation)
             console.log(pickUpLocation, dropOffLocation)
-        mutate({ lessonId, pickUpLocation: pickUpLocation.label, dropOffLocation: dropOffLocation.label })
+        /*eslint-disable @typescript-eslint/no-unsafe-member-access */
+        mutate({ lessonId, pickUpLocation: pickUpLocation?.label, dropOffLocation: dropOffLocation?.label })
 
     }
 

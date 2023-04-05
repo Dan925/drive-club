@@ -18,9 +18,9 @@ const NewUserForm: React.FC<Props> = ({ userRole, setOpenForm }) => {
     const getUserMutation = () => {
 
         const newStudentMutation = api.usersRouter.createStudent.useMutation({
-            onSuccess: () => {
+            onSuccess: async () => {
                 setOpenForm(false);
-                trpcUtils.usersRouter.getAllStudents.invalidate();
+                await trpcUtils.usersRouter.getAllStudents.invalidate();
 
             }
 
@@ -28,17 +28,17 @@ const NewUserForm: React.FC<Props> = ({ userRole, setOpenForm }) => {
 
 
         const newInstructorMutation = api.usersRouter.createInstructor.useMutation({
-            onSuccess: () => {
+            onSuccess: async () => {
                 setOpenForm(false);
-                trpcUtils.usersRouter.getAllInstructors.invalidate();
+                await trpcUtils.usersRouter.getAllInstructors.invalidate();
 
             }
         });
 
         const newAdminMutation = api.usersRouter.createAdmin.useMutation({
-            onSuccess: () => {
+            onSuccess: async () => {
                 setOpenForm(false);
-                trpcUtils.usersRouter.getAllAdmins.invalidate();
+                await trpcUtils.usersRouter.getAllAdmins.invalidate();
 
             }
         });
