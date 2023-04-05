@@ -7,7 +7,7 @@ import AdminItem from "./adminItem"
 
 
 type Props = {
-    userRole: Role;
+    userRole?: Role;
     data: UserProfile[] | User[] | UILesson[];
     listType: ListTypes
 }
