@@ -58,6 +58,7 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
                     <p className="font-bold"> Duration: </p>
                     {formatDistance(lesson.endAt, lesson.startAt)}
                 </span>
+                <div className="w-full h-1 bg-accent"></div>
                 {lesson.booked &&
                     <>
                         <span className="flex w-full">
@@ -83,7 +84,7 @@ const LessonItem: React.FC<Props> = ({ lesson }) => {
                 {canSeeLessonStudent &&
                     <>
                         <div className="w-full h-1 bg-accent"></div>
-                        <h3>Booked by: </h3>
+                        <h3 className="text-lg">Booked by: </h3>
                         <div className="w-full h-1 bg-accent"></div>
                         <p>First Name: {lesson.student.firstName}</p>
                         <p>Last Name: {lesson.student.lastName}</p>

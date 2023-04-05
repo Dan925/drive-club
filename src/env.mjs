@@ -19,10 +19,13 @@ const server = z.object({
     process.env.VERCEL ? z.string().min(1) : z.string().url(),
   ),
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-  DISCORD_CLIENT_ID: z.string(),
-  DISCORD_CLIENT_SECRET: z.string(),
+SMTP_HOST:z.string(),
+SMTP_PORT:z.string(),
+SMTP_USER:z.string(),
+SMTP_PASSWORD:z.string(),
+SMTP_FROM:z.string(),
+NEXT_PUBLIC_GOOGLE_API_KEY:z.string()
 });
-
 /**
  * Specify your client-side environment variables schema here. This way you can ensure the app isn't
  * built with invalid env vars. To expose them to the client, prefix them with `NEXT_PUBLIC_`.
