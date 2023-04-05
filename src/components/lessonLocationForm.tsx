@@ -10,8 +10,8 @@ type Props = {
 const LessonLocationForm: React.FC<Props> = ({ setOpenForm, lessonId }) => {
 
     const [disabledSubmit, setDisabledSubmit] = useState<boolean>(false);
-    const [pickUpLocation, setPickUpLocation] = useState<string>("")
-    const [dropOffLocation, setDropOffLocation] = useState<string>("")
+    const [pickUpLocation, setPickUpLocation] = useState<any>(null)
+    const [dropOffLocation, setDropOffLocation] = useState<any>(null)
 
     const trpcUtils = api.useContext()
 
@@ -19,6 +19,7 @@ const LessonLocationForm: React.FC<Props> = ({ setOpenForm, lessonId }) => {
         onSuccess: () => {
             setOpenForm(false);
             trpcUtils.lessonsRouter.getUserLessons.invalidate();
+            trpcUtils.lessonsRouter.getAvailableLessons.invalidate();
 
         }
     });
@@ -29,7 +30,8 @@ const LessonLocationForm: React.FC<Props> = ({ setOpenForm, lessonId }) => {
         setDisabledSubmit(true);
 
         if (pickUpLocation && dropOffLocation)
-            mutate({ lessonId, pickUpLocation, dropOffLocation })
+            console.log(pickUpLocation, dropOffLocation)
+        mutate({ lessonId, pickUpLocation: pickUpLocation.label, dropOffLocation: dropOffLocation.label })
 
     }
 

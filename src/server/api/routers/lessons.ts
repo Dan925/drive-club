@@ -15,6 +15,32 @@ const lessonsRouter = createTRPCRouter({
                     startAt: {
                         gte: new Date()
                     }
+                },
+                select: {
+                    id: true,
+                    startAt: true,
+                    endAt: true,
+                    pickUpLocation: true,
+                    dropOffLocation: true,
+                    canceled: true,
+                    booked: true,
+                    instructor: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            phoneNumber: true,
+                            userId: true
+                        }
+                    },
+                    student: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            phoneNumber: true,
+                            userId: true
+                        }
+                    },
+
                 }
             });
         }),
@@ -27,6 +53,33 @@ const lessonsRouter = createTRPCRouter({
                         instructor: {
                             userId: ctx.session.user.id
                         }
+                    },
+
+                    select: {
+                        id: true,
+                        startAt: true,
+                        endAt: true,
+                        pickUpLocation: true,
+                        dropOffLocation: true,
+                        canceled: true,
+                        booked: true,
+                        instructor: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                phoneNumber: true,
+                                userId: true
+                            }
+                        },
+                        student: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                phoneNumber: true,
+                                userId: true
+                            }
+                        },
+
                     }
                 })
             }
@@ -36,12 +89,66 @@ const lessonsRouter = createTRPCRouter({
                     where: {
                         student: {
                             userId: ctx.session.user.id
-                        }
+                        },
+
+                    },
+                    select: {
+                        id: true,
+                        startAt: true,
+                        endAt: true,
+                        pickUpLocation: true,
+                        dropOffLocation: true,
+                        canceled: true,
+                        booked: true,
+                        instructor: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                phoneNumber: true,
+                                userId: true
+                            }
+                        },
+                        student: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                                phoneNumber: true,
+                                userId: true
+                            }
+                        },
+
                     }
                 })
 
             }
-            return ctx.prisma.lesson.findMany();
+            return ctx.prisma.lesson.findMany({
+                select: {
+                    id: true,
+                    startAt: true,
+                    endAt: true,
+                    pickUpLocation: true,
+                    dropOffLocation: true,
+                    canceled: true,
+                    booked: true,
+                    instructor: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            phoneNumber: true,
+                            userId: true
+                        }
+                    },
+                    student: {
+                        select: {
+                            firstName: true,
+                            lastName: true,
+                            phoneNumber: true,
+                            userId: true
+                        }
+                    },
+
+                }
+            });
         }),
     createLesson: protectedProcedure
         .input(z.object({
@@ -126,39 +233,57 @@ const lessonsRouter = createTRPCRouter({
             lessonId: z.string()
         }))
         .mutation(async ({ input, ctx }) => {
-            const instructor = await ctx.prisma.instructor.findFirst({
-                where: {
-                    userId: ctx.session.user.id
-                },
-                select: {
-                    id: true
-                }
-            });
-            if (instructor) {
+            try {
+                const updatedLesson = await ctx.prisma.lesson.update({
+                    where: {
+                        id: input.lessonId,
+                    },
+                    data: {
+                        canceled: true
+                    }
+                })
+                return updatedLesson;
+
+            } catch (error) {
+
+                throw new TRPCError({
+                    code: 'BAD_REQUEST',
+                    message: 'Lesson could not be canceled',
+                    cause: error
+                });
+            }
+
+
+
+        }),
+
+    deleteLessonById: protectedProcedure
+        .input(z.object({
+            lessonId: z.string()
+        }))
+        .mutation(async ({ input, ctx }) => {
+            if (ctx.session.user.role !== Role.STUDENT) {
                 try {
-                    const updatedLesson = await ctx.prisma.lesson.update({
+                    await ctx.prisma.lesson.delete({
                         where: {
                             id: input.lessonId,
-                        },
-                        data: {
-                            canceled: true
                         }
                     })
-                    return updatedLesson;
+                    return input.lessonId;
 
                 } catch (error) {
 
                     throw new TRPCError({
                         code: 'BAD_REQUEST',
-                        message: 'Lesson could not be canceled',
+                        message: 'Lesson could not be deleted',
                         cause: error
                     });
                 }
             }
 
             throw new TRPCError({
-                code: 'BAD_REQUEST',
-                message: 'Lesson cannot be booked, student not found',
+                code: 'UNAUTHORIZED',
+                message: 'Lesson cannot be deleted by a student',
             });
 
         })

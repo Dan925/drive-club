@@ -12,14 +12,22 @@ const usersRouter = createTRPCRouter({
 
             if (ctx.session.user.role === Role.STUDENT)
                 throw new TRPCError({ message: "Students are not allowed to access all students accounts", code: 'UNAUTHORIZED' })
-            return ctx.prisma.student.findMany();
+            return ctx.prisma.student.findMany({
+                include: {
+                    userProfile: true
+                }
+            });
         }),
 
     getAllInstructors: protectedProcedure
         .query(({ ctx }) => {
             if (ctx.session.user.role !== Role.ADMIN)
                 throw new TRPCError({ message: "Non-Admins are not allowed to access all instructors accounts", code: 'UNAUTHORIZED' })
-            return ctx.prisma.instructor.findMany();
+            return ctx.prisma.instructor.findMany({
+                include: {
+                    userProfile: true
+                }
+            });
         }),
     createStudent: protectedProcedure
         .input(z.object({
@@ -79,7 +87,7 @@ const usersRouter = createTRPCRouter({
 
         }),
 
-    deleteUser: protectedProcedure
+    deleteUserById: protectedProcedure
         .input(
             z.object({
                 userId: z.string()

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import List from "~/components/list";
 import { api } from "~/utils/api";
 import { useState } from "react";
-import { ListTypes } from "~/types/uiTypes";
+import { ListTypes, UILesson } from "~/types/uiTypes";
 import NewLessonForm from "~/components/newLessonForm";
 import { withAuthSessionRoles } from "~/utils/withAuthSession";
 
@@ -39,7 +39,7 @@ const LessonsPage: NextPage = () => {
 
 
                 </div>
-                {userLessons && <List data={userLessons} listType={ListTypes.LESSONS} />}
+                {userLessons && <List data={userLessons as UILesson[]} listType={ListTypes.LESSONS} />}
                 {isLoading && <h3>..Loading</h3>}
             </main>
         </>

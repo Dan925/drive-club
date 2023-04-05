@@ -17,7 +17,7 @@ const StudentsPage: NextPage = () => {
 
             {addNewStudent && <div className="fixed w-full h-full bg-bgrd-b opacity-50 z-10 flex flex-col justify-center"></div>}
 
-            <main className="w-full h-full py-3 flex flex-col items-center z-1">
+            <main className="w-full h-full py-3 flex flex-col items-center z-1 gap-4">
                 <div className="flex gap-10">
                     <h1>Student List</h1>
                     <button
