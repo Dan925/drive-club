@@ -37,6 +37,12 @@ const NavBar: React.FC = () => {
             adminOnly: true,
             studentsOnly: false,
         },
+        {
+            path: '/admins',
+            title: 'Admins',
+            adminOnly: true,
+            studentsOnly: false,
+        },
     ]
 
     return (

@@ -22,3 +22,9 @@ export type UILesson = Lesson & {
         userId: string;
     };
 }
+export type CreateUserType = {
+    firstName: string | undefined;
+    lastName: string | undefined;
+    phoneNumber: string | undefined;
+    email: string | undefined
+}

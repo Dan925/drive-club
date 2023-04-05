@@ -1,22 +1,19 @@
-import { api } from "~/utils/api";
-import { useState } from "react";
-import { UserProfile } from "~/types/uiTypes";
 
-
+import { useState } from "react"
+import { api } from "~/utils/api"
+import { User } from "@prisma/client"
 type Props = {
-    user: UserProfile
+    user: User
 }
-const UserItem: React.FC<Props> = ({ user }) => {
+const AdminItem: React.FC<Props> = ({ user }) => {
+
     const [disabledDeleteBtn, setDisabledDeleteBtn] = useState<boolean>(false)
     const trpcUtils = api.useContext()
 
 
     const { mutate } = api.usersRouter.deleteUserById.useMutation({
         onSuccess: () => {
-            trpcUtils.lessonsRouter.getUserLessons.invalidate()
-            trpcUtils.lessonsRouter.getAvailableLessons.invalidate()
-            trpcUtils.usersRouter.getAllStudents.invalidate()
-            trpcUtils.usersRouter.getAllInstructors.invalidate()
+            trpcUtils.usersRouter.getAllAdmins.invalidate()
             setDisabledDeleteBtn(false);
         }
     })
@@ -25,15 +22,13 @@ const UserItem: React.FC<Props> = ({ user }) => {
         setDisabledDeleteBtn(true)
         const response = window.confirm("You are about to delete this user account, are you sure you want to go through with this action?")
         if (response) {
-            mutate({ userId: user.userId })
+            mutate({ userId: user.id })
         }
     }
     return (
-        <div className="flex flex-col bg-white/10 w-[500px] h-[200px] justify-between rounded drop-shadow-xl font-bold p-5">
-            <p>First Name: {user.firstName}</p>
-            <p>Last Name: {user.lastName}</p>
-            <p>Phone Number: {user.phoneNumber}</p>
-            <p>email: {user.userProfile?.email}</p>
+
+        <div className="flex flex-col bg-white/10 w-[500px] h-fit gap-2 rounded drop-shadow-xl font-bold p-5">
+            <p>email: {user.email}</p>
             <div className="flex w-full gap-3">
 
                 <button
@@ -45,9 +40,7 @@ const UserItem: React.FC<Props> = ({ user }) => {
                 </button>
             </div>
         </div>
-
-
     )
-}
 
-export default UserItem;
+}
+export default AdminItem;

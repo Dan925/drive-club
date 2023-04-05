@@ -29,6 +29,21 @@ const usersRouter = createTRPCRouter({
                 }
             });
         }),
+    getAllAdmins: protectedProcedure
+        .query(({ ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to access admin accounts", code: 'UNAUTHORIZED' })
+            return ctx.prisma.user.findMany({
+                where: {
+                    role: Role.ADMIN,
+                    id: {
+                        not: ctx.session.user.id
+                    }
+
+                },
+
+            });
+        }),
     createStudent: protectedProcedure
         .input(z.object({
             firstName: z.string(),
@@ -84,6 +99,24 @@ const usersRouter = createTRPCRouter({
                 }
             })
             return instructor;
+
+        }),
+
+    createAdmin: protectedProcedure
+        .input(z.object({
+            email: z.string().email(),
+        }))
+        .mutation(async ({ input, ctx }) => {
+            if (ctx.session.user.role !== Role.ADMIN)
+                throw new TRPCError({ message: "Non-Admins are not allowed to create admin accounts", code: 'UNAUTHORIZED' })
+            const user: User = await ctx.prisma.user.create({
+                data: {
+                    email: input.email,
+                    role: Role.ADMIN,
+                }
+
+            })
+            return user;
 
         }),
 
