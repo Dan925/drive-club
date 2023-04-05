@@ -8,7 +8,7 @@ const Layout = ({ children }: Props) => {
     if (sessionData) {
 
         return (
-            <div className="h-screen">
+            <div className="h-screen font-firaCode">
                 <NavBar />
                 {children}
             </div>

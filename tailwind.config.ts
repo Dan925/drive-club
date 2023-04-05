@@ -11,6 +11,9 @@ export default {
                 "bgrd-b": "var(--bgrd-b)",
                 "gray": "var(--gray)"
             },
+            fontFamily: {
+                firaCode: ["Fira Code"]
+            }
         },
     },
     plugins: [],
