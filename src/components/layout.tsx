@@ -8,7 +8,8 @@ import { Fira_Code } from "next/font/google"
 
 const fira_code = Fira_Code({
     weight: ["300", "400", "500", "600", "700"],
-    subsets: ["latin"]
+    subsets: ["latin"],
+    variable: "--font-fira-code"
 })
 
 const Layout = ({ children }: Props) => {
@@ -16,13 +17,13 @@ const Layout = ({ children }: Props) => {
     if (sessionData) {
 
         return (
-            <div className={`${fira_code.className} h-screen font-firaCode`}>
+            <div className={`${fira_code.variable} h-screen font-firaCode`}>
                 <NavBar />
                 {children}
             </div>
         )
     }
-    return <main className={`${fira_code.className} font-firaCode`}>{children}</main>
+    return <main className={`${fira_code.variable} font-firaCode`}>{children}</main>
 
 }
 
