@@ -19,18 +19,18 @@ const server = z.object({
         process.env.VERCEL ? z.string().min(1) : z.string().url(),
     ),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-    SMTP_HOST: z.string(),
-    SMTP_PORT: z.string(),
-    SMTP_USER: z.string(),
-    SMTP_PASSWORD: z.string(),
-    SMTP_FROM: z.string(),
+    SMTP_HOST: z.string().min(1),
+    SMTP_PORT: z.string().min(1),
+    SMTP_USER: z.string().min(1),
+    SMTP_PASSWORD: z.string().min(1),
+    SMTP_FROM: z.string().min(1),
 });
 /**
  * Specify your client-side environment variables schema here. This way you can ensure the app isn't
  * built with invalid env vars. To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 const client = z.object({
-    // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
+    NEXT_PUBLIC_GOOGLE_API_KEY:z.string().min(1)
 });
 
 /**
@@ -44,9 +44,12 @@ const processEnv = {
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+SMTP_HOST: process.env.SMTP_HOST,
+SMTP_PORT:process.env.SMTP_PORT ,
+SMTP_USER:process.env.SMTP_USER,
+SMTP_PASSWORD:process.env.SMTP_PASSWORD,
+SMTP_FROM: process.env.SMTP_FROM,
+    NEXT_PUBLIC_GOOGLE_API_KEY:process.env.NEXT_PUBLIC_GOOGLE_API_KEY
 };
 
 // Don't touch the part below
