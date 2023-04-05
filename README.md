@@ -1,28 +1,41 @@
-# Create T3 App
+# Driving Lesson Scheduler App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Production App Link
+- [https://drive-club.vercel.app/](https://drive-club.vercel.app/)
+- **Note**: Please contact me for access to the production app, since I'm the only admin
 
-## What's next? How do I make an app with this?
+## Tech Stack
+- NextJS
+- Tailwindcss
+- tRPC
+- prisma
+- Posgres (Supabase)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Current Features
+- As an administrator:
+    - register student accounts with their email
+    - register driving instructors with their email
+    - register new administrators with their email
+    - view and delete students/instructors/admin accounts
+    - view all posted driving lessons
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- As an instructor:
+    - create new driving lessons with a start and end datetime (max duration of 2h)
+    - view status of every lesson posted, including student information if they book the lesson
+    - Delete your posted driving lesson, if no student has booked it yet
+    - Cancel your posted driving lesson, if the lesson was booked
 
-## Learn More
+- As a student:
+    - View your currently booked driving lessons with the instructor's information and cancel status
+    - View and book open driving lessons by adding a pickup and dropOff location (uses Google Maps API)
+    - Cancel your booked driving lesson
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Developer environment setup
+**Note**: This project has 2 main third party dependecies (SendGrid and GoogleMapsAPI) and the app won't run without these or equivalent services
+- Clone the repo
+- Populate the `.env.example` file
+- Run `npm install` to install dependecies
+- Run `npx prisma db push` to push the prisma db schema to your database
+- Create your own admin account through your database with SQL ie. insert a new row into the `User` table with a **valid** email
+- Run `npm run dev` to start your dev environment
