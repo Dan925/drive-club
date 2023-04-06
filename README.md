@@ -2,10 +2,11 @@
 
 ## Production App Link
 - [https://drive-club.vercel.app/](https://drive-club.vercel.app/)
-- **Note**: Please contact me for access to the production app, since I'm the only admin
+- **Note**: Please contact me for admin access, since I'm the only admin
 
-## Tech Stack
+## Technologies
 - NextJS
+- Next-Auth
 - Tailwindcss
 - tRPC
 - prisma
@@ -49,6 +50,8 @@
 ### Student View
  ![](./docs/img3.png)
  ![](./docs/img4.png)
+ ### Instructor View
+ ![](./docs/img5.png)
 ### Magic SignIn Link Email
  ![](./docs/img2.png)
 
