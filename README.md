@@ -51,3 +51,11 @@
  ![](./docs/img4.png)
 ### Magic SignIn Link Email
  ![](./docs/img2.png)
+
+ ## Next Steps/Features to be implemtented
+ - Pagination or Infinite Scrolling
+ - Filtering Driving lessons on start date, duration, instructor
+ - Editing pickup and dropOff location once a lesson is booked
+ - Email notifications for cancelled and booked lessons for students and instructors
+ - As a student, adding instructors as favorite 
+ - Support for multiple driving schools
