@@ -9,7 +9,7 @@
 - Tailwindcss
 - tRPC
 - prisma
-- Posgres (Supabase)
+- postgreSQL (Supabase)
 
 
 ## Current Features
@@ -31,6 +31,9 @@
     - View and book open driving lessons by adding a pickup and dropOff location (uses Google Maps API)
     - Cancel your booked driving lesson
 
+- General
+    - Passwordless Login
+
 ## Developer environment setup
 **Note**: This project has 2 main third party dependecies (SendGrid and GoogleMapsAPI) and the app won't run without these or equivalent services
 - Clone the repo
@@ -39,3 +42,12 @@
 - Run `npx prisma db push` to push the prisma db schema to your database
 - Create your own admin account through your database with SQL ie. insert a new row into the `User` table with a **valid** email
 - Run `npm run dev` to start your dev environment
+
+## Screenshots
+### Admin View
+ ![](./docs/img1.png)
+### Student View
+ ![](./docs/img3.png)
+ ![](./docs/img4.png)
+### Magic SignIn Link Email
+ ![](./docs/img2.png)
