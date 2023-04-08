@@ -4,15 +4,6 @@
 - [https://drive-club.vercel.app/](https://drive-club.vercel.app/)
 - **Note**: Please contact me for admin access, since I'm the only admin
 
-## Technologies
-- NextJS
-- Next-Auth
-- Tailwindcss
-- tRPC
-- prisma
-- postgreSQL (Supabase)
-
-
 ## Current Features
 - As an administrator:
     - register student accounts with their email
@@ -35,6 +26,14 @@
 - General
     - Passwordless Login
 
+## Technologies
+- [T3 Stack](https://create.t3.gg/)
+    - NextJS
+    - Next-Auth
+    - Tailwindcss
+    - tRPC
+    - prisma
+
 ## Developer environment setup
 **Note**: This project has 2 main third party dependecies (SendGrid and GoogleMapsAPI) and the app won't run without these or equivalent services
 - Clone the repo
@@ -55,10 +54,14 @@
 ### Magic SignIn Link Email
  ![](./docs/img2.png)
 
- ## Next Steps/Features to be implemtented
+## Database Design
+- [Database Design](./docs/db.md)
+
+## Next Steps/Features to be implemtented
  - Pagination or Infinite Scrolling
  - Filtering Driving lessons on start date, duration, instructor
  - Editing pickup and dropOff location once a lesson is booked
  - Email notifications for cancelled and booked lessons for students and instructors
  - As a student, adding instructors as favorite 
  - Support for multiple driving schools
+
